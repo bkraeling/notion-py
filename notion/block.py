@@ -735,22 +735,9 @@ class CollectionViewBlockViews(Children):
     child_list_key = "view_ids"
 
     def _get_block(self, view_id):
-
-        view = self._client.get_collection_view(
+        return self._client.get_collection_view(
             view_id, collection=self._parent.collection
         )
-
-        i = 0
-        while view is None:
-            i += 1
-            if i > 20:
-                return None
-            time.sleep(0.1)
-            view = self._client.get_collection_view(
-                view_id, collection=self._parent.collection
-            )
-
-        return view
 
     def add_new(self, view_type="table"):
         if not self._parent.collection:
